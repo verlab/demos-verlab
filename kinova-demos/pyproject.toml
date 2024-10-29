@@ -16,7 +16,7 @@ dependencies = [
     "ultralytics==8.3.24",
     "opencv-python==4.10.0.84",
     "fast-rtsp==0.0.2",
-    "kortex_api @ file://assets/kortex_api-2.6.0.post3-py3-none-any.whl"
+    "kortex_api @ https://github.com/verlab/demos-verlab/releases/download/kinova/kortex_api-2.6.0.post3-py3-none-any.whl"
 ]
 
 [build-system]
