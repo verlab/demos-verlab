@@ -1,0 +1,10 @@
+*.egg-info
+__pycache__
+.DS_Store
+*.cpython*
+*.pyc
+*.pyd
+*.pyo
+*.pyz
+
+PKG-INFO
