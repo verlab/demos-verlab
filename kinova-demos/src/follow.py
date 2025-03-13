@@ -1,7 +1,6 @@
 import numpy as np
 
 import cv2
-import dlib
 import time
 
 from videocaptureasync import VideoCaptureAsync
@@ -16,6 +15,8 @@ from kortex_api.autogen.client_stubs.BaseClientRpc import BaseClient
 from kortex_api.autogen.messages import Session_pb2, Base_pb2
 
 from ultralytics import YOLO
+
+import os, wget
 
 def find_one_face(frame, detector, FACTOR):
     results = detector(frame)
@@ -77,10 +78,13 @@ def twist_command(base_client_service, cmd):
     base_client_service.SendTwistCommand(command)
 
 if __name__ == "__main__":
+    os.makedirs("assets", exist_ok=True)
+    if not os.path.exists("assets/yolov8n-face.pt"):
+        wget.download("https://github.com/verlab/demos-verlab/releases/download/kinova/yolov8n-face.pt", "assets/yolov8n-face.pt")
 
     model = YOLO("assets/yolov8n-face.pt")
 
-    DEVICE_IP = "192.168.1.10"
+    DEVICE_IP = "150.164.212.190"
     DEVICE_PORT = 10000
 
     # Setup API
@@ -106,7 +110,7 @@ if __name__ == "__main__":
 
     send_home(base_client_service)
 
-    video_capture = VideoCaptureAsync("rtsp://192.168.1.10/color", use_rtsp=True)
+    video_capture = VideoCaptureAsync(f"rtsp://{DEVICE_IP}/color", use_rtsp=True)
  
     FACTOR = 0.3
     VEL = 100

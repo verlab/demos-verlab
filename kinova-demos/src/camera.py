@@ -13,6 +13,8 @@ import time
 from ultralytics import YOLO
 
 from fast_rtsp import RTSPCapture
+import wget
+import os
 
 def find_one_face(frame, detector, FACTOR):
     results = detector(frame)
@@ -28,7 +30,10 @@ if __name__ == "__main__":
     # video_capture = cv2.VideoCapture("rtsp://192.168.1.10/color")
     # video_capture = RTSPCapture("rtsp://192.168.1.10/color")
     # detector = dlib.get_frontal_face_detector()
-    detector = YOLO("yolov8n-face.pt")
+    os.makedirs("assets", exist_ok=True)
+    wget.download("https://github.com/verlab/demos-verlab/releases/download/kinova/yolov8n-face.pt", "assets/yolov8n-face.pt")
+    
+    detector = YOLO("assets/yolov8n-face.pt")
     FACTOR = 0.3
 
 
