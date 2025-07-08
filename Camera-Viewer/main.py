@@ -285,6 +285,9 @@ def updateImage(window, cam, model, userChoices):
         if userChoices['EdgeDetectOn']:
             picture = scharrEdgeDetect(picture)
         
+        # upscale the image to 640x480
+        picture = cv2.resize(picture, (640*2, 480*2), interpolation=cv2.INTER_LANCZOS4)
+        
         
         picture_data = numpyToImg(picture)
         window['-IMAGE-'].update(data=picture_data)
